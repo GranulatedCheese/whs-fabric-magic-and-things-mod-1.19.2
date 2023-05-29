@@ -2,6 +2,8 @@ package net.baydan.whsmgc.networking;
 
 import net.baydan.whsmgc.networking.packet.ManaC2SPacket;
 import net.baydan.whsmgc.MagicAndThings;
+import net.baydan.whsmgc.networking.packet.ManaSyncDataS2CPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 
@@ -12,12 +14,12 @@ public class ModPackets {
 
     public static void registerC2SPackets() {
         // ServerPlayNetworking.registerGlobalReceiver(EXAMPLE_ID, ExampleC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(MANA_LEVEL_ID, ManaC2SPacket::receiveManaLevel);
-        ServerPlayNetworking.registerGlobalReceiver(MANA_AMOUNT_ID, ManaC2SPacket::receiveManaAmount);
+        ServerPlayNetworking.registerGlobalReceiver(MANA_LEVEL_ID, ManaC2SPacket::increaseManaLevel);
+        ServerPlayNetworking.registerGlobalReceiver(MANA_AMOUNT_ID, ManaC2SPacket::decreaseManaAmount);
     }
 
     public static void registerS2CPackets() {
-
+        ClientPlayNetworking.registerGlobalReceiver(MANA_SYNC_ID, ManaSyncDataS2CPacket::receive);
     }
 
 }

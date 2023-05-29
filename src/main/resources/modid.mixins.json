@@ -7,7 +7,7 @@
     "ModEntityDataSaverMixin"
   ],
   "client": [
-    "ExampleMixin"
+    "ClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

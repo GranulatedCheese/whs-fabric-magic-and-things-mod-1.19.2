@@ -19,6 +19,9 @@
   "entrypoints": {
     "main": [
       "net.baydan.whsmgc.MagicAndThings"
+    ],
+    "client": [
+      "net.baydan.whsmgc.MagicAndThingsClient"
     ]
   },
   "mixins": [

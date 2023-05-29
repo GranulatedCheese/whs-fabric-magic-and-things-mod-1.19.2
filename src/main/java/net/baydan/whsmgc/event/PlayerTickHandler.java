@@ -1,6 +1,5 @@
 package net.baydan.whsmgc.event;
 
-import net.baydan.whsmgc.api.ManaSystemAttributes;
 import net.baydan.whsmgc.util.IEntityDataSaver;
 import net.baydan.whsmgc.util.ManaData;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -19,9 +18,7 @@ public class PlayerTickHandler implements ServerTickEvents.StartTick{
             // Increases manaAmount every 10 ticks
             if(server.getTicks() % 10 == 0){
                 IEntityDataSaver dataPlayer = ((IEntityDataSaver) player);
-                ManaData.addManaAmount(dataPlayer, ManaSystemAttributes.calculateMaxMana(ManaData.getManaLevel(dataPlayer)));
-                player.sendMessage(Text.literal("Added Mana"));
-                ManaData.setManaLevel(dataPlayer, 5);
+                ManaData.addManaAmount(dataPlayer, ManaData.calculateMaxMana(dataPlayer, ManaData.getManaLevel(dataPlayer)));
             }
 
             player.sendMessage(Text.literal("Mana Amount: " + ((IEntityDataSaver) player).getPersistentData().getInt("mana_amount"))
