@@ -20,11 +20,20 @@ public class PlayerTickHandler implements ServerTickEvents.StartTick{
                 IEntityDataSaver dataPlayer = ((IEntityDataSaver) player);
                 ManaData.addManaAmount(dataPlayer, ManaData.calculateMaxMana(dataPlayer, ManaData.getManaLevel(dataPlayer)));
             }
-
             player.sendMessage(Text.literal("Mana Amount: " + ((IEntityDataSaver) player).getPersistentData().getInt("mana_amount"))
                     .fillStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
 
+            /*
+            IEntityDataSaver dataPlayer = ((IEntityDataSaver) player);
+            if(ManaData.getManaAmount(dataPlayer) <= ManaData.calculateMaxMana(dataPlayer, ManaData.getManaLevel(dataPlayer))) {
+                player.sendMessage(Text.literal("Mana Percent Debug: " + ManaData.calculateManaPercent(
+                        dataPlayer,
+                        ManaData.getManaAmount(dataPlayer),
+                        ManaData.getManaLevel(dataPlayer))
+                ).fillStyle(Style.EMPTY.withColor(Formatting.BLUE)), false);
+            }
 
+             */
         }
 
 

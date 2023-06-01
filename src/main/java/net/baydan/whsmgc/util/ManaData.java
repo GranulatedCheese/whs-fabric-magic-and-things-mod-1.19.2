@@ -86,6 +86,11 @@ public class ManaData {
         return maxMana;
     }
 
+    public static int calculateManaPercent(IEntityDataSaver player, int manaAmount, int manaLevel) {
+        double manaPercent = (double) manaAmount / calculateMaxMana(player, manaLevel);
+        return (int) (manaPercent * 100);
+    }
+
     public static void syncManaAmount(int manaAmount, ServerPlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
         buffer.writeInt(manaAmount);
