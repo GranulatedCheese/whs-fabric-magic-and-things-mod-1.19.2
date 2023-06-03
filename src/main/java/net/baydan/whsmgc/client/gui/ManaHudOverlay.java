@@ -23,13 +23,16 @@ public class ManaHudOverlay implements HudRenderCallback {
     private static final Identifier MANA_BAR_FILL = new Identifier(MagicAndThings.MOD_ID,
             "textures/gui/mana/mana_bar_fill.png");
 
+    private static final Identifier MANA_BAR_EMPTY = new Identifier(MagicAndThings.MOD_ID,
+            "textures/gui/mana/mana_bar_empty.png");
+
     @Override
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
         int x = 0;
         int y = 0;
 
         MinecraftClient client = MinecraftClient.getInstance();
-        IEntityDataSaver dataPlayer = ((IEntityDataSaver) MinecraftClient.getInstance().player);
+
 
         if(client != null) {
             int width = client.getWindow().getScaledWidth();
@@ -39,19 +42,18 @@ public class ManaHudOverlay implements HudRenderCallback {
             y = height;
         }
 
-        int manaPercent = ManaData.calculateManaPercent(
-                dataPlayer,
-                ManaData.getManaAmount(dataPlayer),
-                ManaData.getManaLevel(dataPlayer)
-        );
-
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F,1.0F);
+        RenderSystem.setShaderTexture(0,MANA_BAR_EMPTY);
+        for(int i = 0; i < 100; i++) {
+            DrawableHelper.drawTexture(matrixStack, x - 104 + (i * (10 - 8)), y - 36, 0, 0, 12, 12, 16, 14);
+        }
+
         RenderSystem.setShaderTexture(0,MANA_BAR_FILL);
-        for(int i = 0; i < 10; i++) {
-            if(manaPercent / 10 > i) {
-                DrawableHelper.drawTexture(matrixStack, x - 94 + (i * (10 - 8)), y - 54, 0, 0, 16, 16, 16, 16);
+        for(int i = 0; i < 100; i++) {
+            if(ManaData.calculateManaPercent(((IEntityDataSaver) MinecraftClient.getInstance().player)) > i) {
+                DrawableHelper.drawTexture(matrixStack, x - 104 + (i * (10 - 8)), y - 36, 0, 0, 12, 12, 16, 14);
             } else {
                 break;
             }

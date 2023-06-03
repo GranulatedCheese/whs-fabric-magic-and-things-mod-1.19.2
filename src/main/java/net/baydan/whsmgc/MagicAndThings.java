@@ -15,6 +15,7 @@ public class MagicAndThings implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.registerModItems();
+
 		ModPackets.registerC2SPackets();
 
 		ServerTickEvents.START_SERVER_TICK.register(new PlayerTickHandler());

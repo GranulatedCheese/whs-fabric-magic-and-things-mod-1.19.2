@@ -16,6 +16,8 @@ public class ManaData {
         // Increases mana level only if manaLevel is below 15.
         if(manaLevel + amount >= 15){
             manaLevel = 15;
+        } else if(manaLevel + amount <= 0)  {
+            manaLevel = 0;
         } else {
             manaLevel += amount;
         }
@@ -86,20 +88,21 @@ public class ManaData {
         return maxMana;
     }
 
-    public static int calculateManaPercent(IEntityDataSaver player, int manaAmount, int manaLevel) {
-        double manaPercent = (double) manaAmount / calculateMaxMana(player, manaLevel);
+    public static int calculateManaPercent(IEntityDataSaver player) {
+        //double manaPercent = (double) manaAmount / calculateMaxMana(player, manaLevel);
+        double manaPercent = (double) getManaAmount(player) / calculateMaxMana(player, getManaLevel(player));
         return (int) (manaPercent * 100);
     }
 
     public static void syncManaAmount(int manaAmount, ServerPlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
         buffer.writeInt(manaAmount);
-        ServerPlayNetworking.send(player, ModPackets.MANA_SYNC_ID, buffer);
+        ServerPlayNetworking.send(player, ModPackets.MANA_AMOUNT_SYNC_ID, buffer);
     }
 
     public static void syncManaLevel(int manaLevel, ServerPlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
         buffer.writeInt(manaLevel);
-        ServerPlayNetworking.send(player, ModPackets.MANA_SYNC_ID, buffer);
+        ServerPlayNetworking.send(player, ModPackets.MANA_LEVEL_SYNC_ID, buffer);
     }
 }
