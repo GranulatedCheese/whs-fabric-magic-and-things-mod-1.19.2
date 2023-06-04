@@ -10,7 +10,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 
-public class KBManaLevelC2SPacket {
+public class ManaLevelC2SPacket {
 
     public static void increaseManaLevel(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
                                          PacketByteBuf buf, PacketSender responseSender) {

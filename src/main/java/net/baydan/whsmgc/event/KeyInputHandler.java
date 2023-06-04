@@ -1,6 +1,7 @@
 package net.baydan.whsmgc.event;
 
 import net.baydan.whsmgc.networking.ModPackets;
+import net.baydan.whsmgc.networking.packet.ManaAmountC2SPacket;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -25,7 +26,7 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(removeManaAmountKey.wasPressed()) {
                 // This will hapen when key is pressed
-                ClientPlayNetworking.send(ModPackets.MANA_AMOUNT_ID, PacketByteBufs.create());
+                ClientPlayNetworking.send(ManaAmountC2SPacket.ID, PacketByteBufs.create());
             }
 
             if(addManaLevelKey.wasPressed()) {

@@ -5,6 +5,7 @@ import net.baydan.whsmgc.MagicAndThings;
 import net.baydan.whsmgc.util.IEntityDataSaver;
 import net.baydan.whsmgc.util.ManaData;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.GameRenderer;
@@ -39,6 +40,8 @@ public abstract class InGameHudMixin {
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
+    @Shadow public abstract TextRenderer getTextRenderer();
+
     @Inject(method = "render", at = @At("TAIL"))
     public void render(MatrixStack ms, float tickDelta, CallbackInfo ci) {
         PlayerEntity player = this.getCameraPlayer();
@@ -65,12 +68,18 @@ public abstract class InGameHudMixin {
 
         RenderSystem.setShaderTexture(0, MANA_BAR_FILL);
         for(int i = 0; i < 100; i++) {
+            //String string = "mana level: " + ManaData.getManaLevel((IEntityDataSaver) client.player);
+            //this.getTextRenderer().draw(ms, string, scaledWidth - 110, scaledHeight - 36, 16777215);
+            //this.client.getProfiler().pop();
+
             if(ManaData.calculateManaPercent(((IEntityDataSaver) player)) > i) {
                 hud.drawTexture(ms, scaledWidth - 104 + (i * (10 - 8)), scaledHeight - 36, 0, 0, 12, 12, 16, 14);
                 this.client.getProfiler().pop();
             } else {
                 break;
             }
+
+
         }
     }
 }
